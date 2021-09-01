@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CardPage extends StatelessWidget {
+  final size = 30.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,9 +13,44 @@ class CardPage extends StatelessWidget {
         children: [
           _cardTipoOne(),
           SizedBox(
-            height: 20.0,
+            height: size,
           ),
           _cardTipoTwo(),
+          SizedBox(
+            height: size,
+          ),
+          _cardTipoOne(),
+          SizedBox(
+            height: size,
+          ),
+          _cardTipoTwo(),
+          SizedBox(
+            height: size,
+          ),
+          _cardTipoOne(),
+          SizedBox(
+            height: size,
+          ),
+          _cardTipoTwo(),
+          SizedBox(
+            height: size,
+          ),
+          _cardTipoOne(),
+          SizedBox(
+            height: size,
+          ),
+          _cardTipoTwo(),
+          SizedBox(
+            height: size,
+          ),
+          _cardTipoOne(),
+          SizedBox(
+            height: size,
+          ),
+          _cardTipoTwo(),
+          SizedBox(
+            height: size,
+          )
         ],
       ),
     );
@@ -22,6 +58,8 @@ class CardPage extends StatelessWidget {
 
   Widget _cardTipoOne() {
     return Card(
+      elevation: 8.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       child: Column(
         children: [
           ListTile(
@@ -46,7 +84,8 @@ class CardPage extends StatelessWidget {
   }
 
   Widget _cardTipoTwo() {
-    return Card(
+    final card = Container(
+      decoration: BoxDecoration(color: Colors.white),
       child: Column(
         children: [
           FadeInImage(
@@ -57,10 +96,26 @@ class CardPage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           Container(
-            child: Text('Esta es la descripción de la imagen'),
             padding: EdgeInsets.all(10.0),
+            child: Text('Esta es la descripción de la imagen'),
           )
         ],
+      ),
+    );
+
+    return Container(
+      // padding: EdgeInsets.all(30.0),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(30.0), boxShadow: [
+        BoxShadow(
+            color: Colors.black26,
+            blurRadius: 30.0,
+            spreadRadius: 10.0,
+            offset: Offset(2, 10))
+      ]),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30.0),
+        child: card,
       ),
     );
   }
