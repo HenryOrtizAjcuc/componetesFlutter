@@ -9,7 +9,13 @@ class CardPage extends StatelessWidget {
       ),
       body: ListView(
         padding: EdgeInsets.all(10.0),
-        children: [_cardTipoOne()],
+        children: [
+          _cardTipoOne(),
+          SizedBox(
+            height: 20.0,
+          ),
+          _cardTipoTwo(),
+        ],
       ),
     );
   }
@@ -33,6 +39,26 @@ class CardPage extends StatelessWidget {
               TextButton(onPressed: () {}, child: Text('Cancelar')),
               TextButton(onPressed: () {}, child: Text('Continuar'))
             ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _cardTipoTwo() {
+    return Card(
+      child: Column(
+        children: [
+          FadeInImage(
+            placeholder: AssetImage('assets/jar-loading.gif'),
+            image: NetworkImage('https://wallpapercave.com/wp/wp4600617.jpg'),
+            fadeInDuration: Duration(milliseconds: 200),
+            height: 300.0,
+            fit: BoxFit.cover,
+          ),
+          Container(
+            child: Text('Esta es la descripción de la imagen'),
+            padding: EdgeInsets.all(10.0),
           )
         ],
       ),
