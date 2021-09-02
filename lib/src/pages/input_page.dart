@@ -10,8 +10,17 @@ class _InputPageState extends State<InputPage> {
   String _email = '';
   String _password = '';
   String _date = '';
-  TextEditingController _inputDate = TextEditingController();
+  String _opcionSeleccionada = '';
+
   final _separator = 20.0;
+  TextEditingController _inputDate = TextEditingController();
+
+  List<String> _opciones = [
+    'Volar',
+    'Rayos x',
+    'Super aliento',
+    'Super fuerza'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +44,10 @@ class _InputPageState extends State<InputPage> {
             height: _separator,
           ),
           _crearFecha(context),
+          SizedBox(
+            height: _separator,
+          ),
+          _crearDropDown(),
           Divider(),
           _crearPersona()
         ],
@@ -150,10 +163,47 @@ class _InputPageState extends State<InputPage> {
     }
   }
 
+  Widget _crearDropDown() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          child: Text('Seleccione super poder:'),
+        ),
+        SizedBox(),
+        DropdownButton(
+          value:
+              _opcionSeleccionada.isEmpty ? _opciones[0] : _opcionSeleccionada,
+          items: obtenerOpcionesDropDown(),
+          onChanged: (opt) {
+            setState(() {
+              _opcionSeleccionada = opt.toString();
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  List<DropdownMenuItem<String>> obtenerOpcionesDropDown() {
+    List<DropdownMenuItem<String>> lista =
+        new List<DropdownMenuItem<String>>.filled(
+            0, DropdownMenuItem(child: Text('')),
+            growable: true);
+    _opciones.forEach((element) {
+      lista.add(DropdownMenuItem(
+        child: Text(element),
+        value: element,
+      ));
+    });
+    return lista;
+  }
+
   Widget _crearPersona() {
     return ListTile(
       title: Text('Nombre es: $_nombre'),
       subtitle: Text('Correo electrónico: $_email'),
+      trailing: Text('Poder: $_opcionSeleccionada'),
     );
   }
 }
