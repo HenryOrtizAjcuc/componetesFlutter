@@ -9,6 +9,8 @@ class _InputPageState extends State<InputPage> {
   String _nombre = '';
   String _email = '';
   String _password = '';
+  String _date = '';
+  TextEditingController _inputDate = TextEditingController();
   final _separator = 20.0;
 
   @override
@@ -29,6 +31,10 @@ class _InputPageState extends State<InputPage> {
             height: _separator,
           ),
           _crearPassord(),
+          SizedBox(
+            height: _separator,
+          ),
+          _crearFecha(context),
           Divider(),
           _crearPersona()
         ],
@@ -103,6 +109,45 @@ class _InputPageState extends State<InputPage> {
         });
       },
     );
+  }
+
+  Widget _crearFecha(BuildContext context) {
+    return TextField(
+      controller: _inputDate,
+      enableInteractiveSelection: false,
+      decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+          hintText: 'Ingrese fecha de nacimiento',
+          labelText: 'Fecha nacimiento',
+          suffix: Icon(
+            Icons.perm_contact_calendar,
+            color: Colors.blue,
+          ),
+          icon: Icon(Icons.calendar_today)),
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+        _selectDate(context);
+      },
+    );
+  }
+
+  _selectDate(BuildContext context) async {
+    int initial = DateTime.now().year - 18;
+    int last = DateTime.now().year - 18;
+    int first = DateTime.now().year - 150;
+
+    DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: new DateTime(initial, 12, 31),
+        firstDate: new DateTime(first),
+        lastDate: new DateTime(last, 12, 31));
+
+    if (picked != null) {
+      setState(() {
+        _date = picked.toString().substring(0, 10);
+        _inputDate.text = _date;
+      });
+    }
   }
 
   Widget _crearPersona() {
